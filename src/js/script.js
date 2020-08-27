@@ -171,7 +171,7 @@
           /* END IF: if option is selected and option is not default */
           }
           /* START ELSE IF: if option is not selected and option is default */
-          else if (option.default && optionSelected) {
+          else if (option.default && !optionSelected) {
             /* deduct price of option from price */
             price -= option.price;
           }
@@ -206,8 +206,8 @@
       }
     },
     initMenu: function(){
-      const testProduct = new Product();
-      console.log ('testProduct:' , testProduct);
+      //const testProduct = new Product();
+      //console.log ('testProduct:' , testProduct);
     },
     init: function(){
       const thisApp = this;
