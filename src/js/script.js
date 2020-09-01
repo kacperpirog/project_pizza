@@ -260,10 +260,8 @@
       return parseInt(value);
     }
   
-    isValid(value) {
-      return !isNaN(value) // sprawdza, czy value nie jest nieliczbą; funkcja isNaN sprawdza, czy przekazana wartość jest NotaNumber
-      && value >= settings.amountWidget.defaultMin
-      && value <= settings.amountWidget.defaultMax;
+    isValid(newValue) {
+      return !isNaN(newValue) && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax;
     }
   
     renderValue() {
