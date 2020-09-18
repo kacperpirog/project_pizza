@@ -1,6 +1,8 @@
-import {select, classNames, templates} from './settings.js';
-import utils from './utils.js';
-import AmountWidget from './components/AmountWidget';
+import {select, classNames, templates} from '../settings.js';
+import utils from '../utils.js';
+import AmountWidget from './AmountWidget.js';
+
+
 class Product{
   constructor ( id, data){
     const thisProduct = this;
@@ -167,14 +169,16 @@ class Product{
     thisProduct.name = thisProduct.data.name;
     thisProduct.amount = thisProduct.amountWidget.value;
 
-    //app.cart.add(thisProduct);
-      
+    /* hej koszyku dodaj mnie */
+    // app.cart.add(thisProduct);    // app.cart -- wywołanie instancji klasy Cart (zapisanej w thisApp.cart)  // app - stała globalna // cart - klucz wewnątrz tej stałej // add - wywołanie metody w obcej klasie
+    // metoda add otrzymuje odwołanie do instancji, dzięki czemu może odczytać jej właściwości i wykoanć jej metody
     const event = new CustomEvent('add-to-cart', {
       bubbles: true,
       detail: {
-        Product: thisProduct,
-      }
+        product: thisProduct,
+      },
     });
+
     thisProduct.element.dispatchEvent(event);
   }
     

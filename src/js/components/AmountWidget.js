@@ -9,7 +9,7 @@ class AmountWidget {
     thisWidget.initActions();
       
     console.log('AmountWidget:', thisWidget);
-    console.log('constructor arguments:', element);
+    console.log('constructor arguments:', element); 
   }
   getElements(element){
     const thisWidget = this;
