@@ -1,36 +1,45 @@
-import {templates, select} from '../settings.js';
-import utils from '../utils.js';
+/* eslint-disable indent */
+import {select, templates} from '../settings.js';
 import AmountWidget from './AmountWidget.js';
-class Booking {
-  constructor(element) {
+import DatePicker from './DatePicker.js';
+import HourPicker from './HourPicker.js';
+
+class Booking{
+  constructor(element){
     const thisBooking = this;
 
     thisBooking.render(element);
     thisBooking.initWidgets();
+
+
+    thisBooking.selectedTable = [];
   }
+
+
+
   render(element){
     const thisBooking = this;
 
-    /* generate HTML from the template */
     const generatedHTML = templates.bookingWidget();
-    /* create empty object thisBooking.dom*/
+
     thisBooking.dom = {};
-    /* add wrapper to thisBooking.dom */
     thisBooking.dom.wrapper = element;
-    /* change generatedHTML to DOM object and add it to wrapper */
-    const generatedDOM = utils.createDOMFromHTML(generatedHTML);
-    thisBooking.dom.wrapper.appendChild(generatedDOM);
-    /* PeopleAmount selector */
+    thisBooking.dom.wrapper.innerHTML = generatedHTML;
     thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
-    /* hoursAmount selector */
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
-    thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll(select.booking.starters);
+
     thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
     thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);
-    thisBooking.dom.form = thisBooking.dom.wrapper.querySelector(select.booking.form);
+    thisBooking.dom.hourPicker.output = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.output);
+    thisBooking.dom.starters = thisBooking.dom.wrapper.querySelectorAll('.checkbox input');
+    thisBooking.dom.peopleAmount.input = thisBooking.dom.wrapper.querySelector('.people-amount input.amount');
+    thisBooking.dom.hoursAmount.input = thisBooking.dom.wrapper.querySelector('.hours-amount input.amount');
+
+    // console.log(thisBooking.dom.datePicker.value, 'thisBooking.dom.datePicker');
+
   }
 
   initWidgets(){
@@ -38,15 +47,15 @@ class Booking {
 
     thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
     thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
+    thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
+    thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
 
-    thisBooking.dom.wrapper.addEventListener('updated', function(){
-      thisBooking.updateDOM();
-    });
+    // thisBooking.dom.wrapper.addEventListener('updated', function(){
+    //   thisBooking.updateDOM();
+    // });
   }
+
+  
 }
-
-
-
-
 
 export default Booking;

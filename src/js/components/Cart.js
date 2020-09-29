@@ -1,20 +1,21 @@
-import {select, classNames, templates, settings} from '../settings.js';
-import utils from '../utils.js';
 import CartProduct from './CartProduct.js';
+import utils from '../utils.js';
+import {select, classNames, settings, templates} from '../settings.js';
 
-class Cart{
-  constructor(element){
+class Cart {
+  constructor(element) {
     const thisCart = this;
+
     thisCart.products = [];
-    thisCart.deliveryFee = settings.cart.defaultDeliveryFee;
-    thisCart.getElements(element);   
+    thisCart.getElements(element);
     thisCart.initActions();
-    thisCart.update();
-    // thisCart.add(menuProduct);
-    console.log('new cart', thisCart);
+    thisCart.deliveryFee = settings.cart.defaultDeliveryFee;
+    console.log(thisCart);
+
   }
-  getElements(element) {
+  getElements(element){
     const thisCart = this;
+
     thisCart.dom = {};
     thisCart.dom.wrapper = element;
     thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
@@ -22,106 +23,103 @@ class Cart{
     thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
     thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
     thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
-    thisCart.renderTotalsKeys = ['totalNumber', 'totalPrice', 'subtotalPrice', 'deliveryFee'];
-    for (let key of thisCart.renderTotalsKeys) {
-      thisCart.dom[key] = thisCart.dom.wrapper.querySelectorAll(select.cart[key]); 
+    thisCart.renderTotalKeys = ['totalNumber', 'totalPrice', 'subtotalPrice', 'deliveryFee'];
+
+    for(let key of thisCart.renderTotalKeys){
+      thisCart.dom[key] = thisCart.dom.wrapper.querySelectorAll(select.cart[key]);
     }
-      
-    // console.log('thisCart.dom.toggleTrigger', thisCart.dom.toggleTrigger);
+
+   
   }
   initActions(){
     const thisCart = this;
-    thisCart.dom.toggleTrigger.addEventListener ('click', function () {
-      thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
-    });
 
-    thisCart.dom.productList.addEventListener ('updated', function() {
-      thisCart.update();
-    });
-
-    thisCart.dom.productList.addEventListener ('remove', function(event) {
-      thisCart.remove(event.detail.cartProduct);
-    });
-
-    thisCart.dom.form.addEventListener ('submit', function(event) {
+    thisCart.dom.form.addEventListener('click', function(event){
       event.preventDefault();
       thisCart.sendOrder();
     });
+    thisCart.dom.toggleTrigger.addEventListener('click', function(){
+      thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
+    });
+    thisCart.dom.productList.addEventListener('updated', function(){
+      thisCart.update();
+    });
+    thisCart.dom.productList.addEventListener('remove', function(){
+      thisCart.remove(event.detail.cartProduct);
+    });
   }
-  remove(cartProduct) {
+
+  remove(cartProduct){
     const thisCart = this;
     const index = thisCart.products.indexOf(cartProduct);
     thisCart.products.splice(index, 1);
     cartProduct.dom.wrapper.remove();
-  
     thisCart.update();
   }
-  add(menuProduct) {
+
+  add(menuProduct){
     const thisCart = this;
+
     const generatedHTML = templates.cartProduct(menuProduct);
     const generatedDOM = utils.createDOMFromHTML(generatedHTML);
-    const cartContainer = document.querySelector(select.cart.productList);
+    const cartContainer = thisCart.dom.productList;
     cartContainer.appendChild(generatedDOM);
-
-    console.log('adding product', menuProduct);
-
     thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
-    console.log('thisCart.products', thisCart.products);
     thisCart.update();
   }
-  update() {
+
+  update(){
     const thisCart = this;
+
     thisCart.totalNumber = 0;
     thisCart.subtotalPrice = 0;
-    for (let product of thisCart.products) {
-      thisCart.subtotalPrice += product.price;
+    for (let product of thisCart.products){
       thisCart.totalNumber += product.amount;
+      thisCart.subtotalPrice += product.price;
     }
-    thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
+    thisCart.totalPrice = thisCart.deliveryFee + thisCart.subtotalPrice;
 
-    for (let key of thisCart.renderTotalsKeys) {
-      for (let elem of thisCart.dom[key]) {
+    for (let key of thisCart.renderTotalKeys){
+      for (let elem of thisCart.dom[key]){
         elem.innerHTML = thisCart[key];
       }
     }
-
-    console.log('totalNumber', thisCart.totalNumber);
-    console.log('subtotalPrice', thisCart.subtotalPrice);
-    console.log('totalPrice', thisCart.totalPrice);
+    
   }
-  sendOrder() {
+
+  sendOrder(){
     const thisCart = this;
     const url = settings.db.url + '/' + settings.db.order;
 
     const payload = {
+      address: 'test',
       totalPrice: thisCart.totalPrice,
-      totalNumber: thisCart.totalNumber,
-      subtotalPrice: thisCart.subtotalPrice,
-      deliveryFee: thisCart.deliveryFee,
       phone: thisCart.dom.phone.value,
-      address: thisCart.dom.address.value,
+      mail: thisCart.dom.address.value,
+      deliveryFee: thisCart.deliveryFee,
+      subtotalPrice: thisCart.subtotalPrice,
+      totalNumber: thisCart.totalNumber,
       products: [],
     };
-    
-    for (let product of thisCart.products) {
-      const data = product.getData();
-      payload.products.push(data);
+    for(let pickedProduct of thisCart.products) {
+      payload.products.push(pickedProduct.getData());
     }
+
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
-    };      
-    fetch(url, options)              // wysyłamy zapytania pod takie adresy (numery telefonów)
-      .then(function(response) {
+    };
+    fetch(url, options)
+      .then(function(response){
         return response.json();
-      })
-      .then(function(parsedResponse) {
-        console.log('parsedResponse', parsedResponse);
+      }).then(function(parsedResponse){
+        console.log(parsedResponse);
       });
   }
+
 }
 
 export default Cart;
