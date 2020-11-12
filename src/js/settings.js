@@ -1,5 +1,4 @@
 /* global Handlebars */
-
 export const select = {
   templateOf: {
     menuProduct: '#template-menu-product',
@@ -18,7 +17,7 @@ export const select = {
     formInputs: 'input, select',
   },
   menuProduct: {
-    clickable: '.product__header',      // zmiana widoczności opcji ma się odbywać na kliknięcie
+    clickable: '.product__header',
     form: '.product__order',
     priceElem: '.product__total-price .price',
     imageWrapper: '.product__images',
@@ -63,9 +62,13 @@ export const select = {
     peopleAmount: '.people-amount',
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
+    form: '.booking-form',
+    starters: '.booking-form [name="starter"]',
+    phone: '[name="phone"]',
+    address: '[name="address"]',
   },
   nav: {
-    links: '.main-nav a',
+    links: '.main-nav a, .secondary-nav a',
   },
 };
 
@@ -76,7 +79,6 @@ export const classNames = {
   },
   cart: {
     wrapperActive: 'active',
-    invisible: 'invisible',
   },
   booking: {
     loading: 'loading',
@@ -122,12 +124,8 @@ export const settings = {
   },
 };
 
-
-
 export const templates = {
   menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
-  // CODE ADDED START
   cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
-  // CODE ADDED END
   bookingWidget: Handlebars.compile(document.querySelector(select.templateOf.bookingWidget).innerHTML),
 };

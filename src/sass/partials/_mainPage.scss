@@ -1,6 +1,5 @@
 .main-page {
-  margin: ($base-size * 3.5) auto;
-  padding: ($base-size * 6) ($base-size * 4);
+  padding: $base-size ($base-size * 2);
   background: $color-light;
   border-bottom: 1px solid lighten($color-dark, 70%);
   border-radius: $radius;
@@ -9,17 +8,121 @@
 .main-nav {
   display: flex;
   justify-content: space-between;
-  margin: auto auto;
+  margin: auto;
   text-transform: uppercase;
-  a {
-    @extend .h1;
+
+
+  a[href="#main"] {
+    display: none;
+  }
+
+  .order-image {
+    display: flex;
+    margin: auto;
+    background-image: url("../images/main/pizza-1.jpg");
+    width: 300px;
+    height: 120px;
+    margin: auto;
+    border-radius: $radius;
+    position: relative;
+    transition: $transition;
+  }
+
+  .order-image .overlay {
+    position: absolute;
+    top: 70%;
+    width: 100%;
+    transition: $transition;
+    opacity: 0;
+    color: $color-light;
+    font-size: 16px;
+    text-align: center;
+    text-transform: none;
+    font-style: bold;
+  }
+
+  .order-image:hover {
+    padding-bottom: 15px;
+  }
+
+  .order-image:hover .overlay {
+    opacity: 1;
+    transition: $transition;
+    transform: translateY(-12px);
+  }
+
+  .booking-image {
+    display: flex;
+    margin: auto;
+    background-image: url("../images/main/pizza-2.jpg");
+    width: 300px;
+    height: 120px;
+    margin: auto;
+    border-radius: $radius;
+    position: relative;
+    transition: $transition;
+  }
+
+  .booking-image .overlay {
+    position: absolute;
+    top: 70%;
+    width: 100%;
+    transition: $transition;
+    opacity: 0;
+    color: $color-light;
+    font-size: 16px;
+    text-align: center;
+    text-transform: none;
+    font-style: bold;
+  }
+
+  .booking-image:hover {
+    padding-bottom: 15px;
+  }
+
+  .booking-image:hover .overlay {
+    opacity: 1;
+    transition: $transition;
+    transform: translateY(-12px);
+  }
+
+  .order-online {
+    flex: 1 0 0;
+    display: flex;
+    margin: auto;
+    padding: 0;
+  }
+
+  .order-online p{
+    margin: auto;
+  }
+
+  .book-a-table {
+    flex: 1 0 0;
+    display: flex;
+    margin: auto;
+    padding: 0;
+  }
+
+  .book-a-table p{
+    margin: auto;
+  }
+
+}
+.main-nav_1 {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: center;  
+  a {    
     color: $color-light;
     text-decoration: none;
     margin-right: ($base-size * 2);
     text-align: center;
     padding: $base-size ($base-size * 2);
-
-
+    @extend .h1;
     &.active {
       background: lighten($color-dark, 75%);
     }
@@ -123,7 +226,6 @@
   }
 
 }
-
 .opening-hours{
   display: flex;
   flex-direction: column;
@@ -202,7 +304,7 @@
 /* gallery */
 
 .gallery {
-  margin-top: 50%;
+  margin-top: 5%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;

@@ -17,13 +17,16 @@
     <div class="container">
       <div class="header__wrapper">
         <div class="logo">
-          <h1 class="logo__title"><span>Mamma</span>Mia!</h1>
-          <h2 class="logo__subtitle">the best homemade Italian food</h2>
+          <h1 class="logo__title"><span>Toni Pepperoni</span>!</h1>
+          <h2 class="logo__subtitle">Italian food</h2>
         </div>
         <div class="main-nav">
           <a href="#main-page">Main Page</a>
           <a href="#order">Order</a>
           <a href="#booking">Booking</a>
+          <a href="#registerForm">register form</a>
+          
+
         </div>
         <div id="cart" class="cart">
           <div class="cart__summary">
@@ -62,9 +65,8 @@
     </div>
   </header>
   <div id="pages">
-    <section id="main">
       <div id="main-page" class="main-page container">
-        <div class="main-nav">
+        <div class="main-nav_1">
           <div class="order-image">
             <a href="#order" class="order-online"><p>Order online</p></a>
             <div class="overlay">Delicious food delivered to your door</div>
@@ -172,29 +174,29 @@
           </div>
         </div>
       </div>
-    </section>
     <section id="order">
       <div id="product-list" class="product-list container">
         <div class="main-nav">
-          <div class="booking-image">
-            <a href="#booking" class="book-a-table"><p>Book a table</p></a>
-            <div class="overlay">Book a table!</div>
-          </div>
+     
         </div>
       </div>
     </section>
     <section id="booking">
       <div class="booking-wrapper container">
-        <div class="main-nav">
-          <div class="order-image">
-            <a href="#order" class="order-online"><p>Order online</p></a>
-            <div class="overlay">Delicious food delivered to your door</div>
-          </div>
-        </div>
+        
       </div>
     </section>
-  </div>
-
+    <section id="registerForm">
+      <div id="main-page" class="main-page container">
+        <h1>Register form</h1>
+        <form class="register__form__wrapper">
+        <input class="register__form__email__input" type="email" placeholder="e-mail"></input>
+        <input class="register__form__password__input" type="password" placeholder="password"></input>
+        <button class="register__form__btn" type="submit">register</button>
+        </form>
+      <ul class="register__user__list"></ul> 
+    </div>
+    </section>
   <script id="template-booking-widget" type="text/x-handlebars-template">
     <div class="booking-widget">
       <h2 class="page__title no-spacing">Book a table</h2>
@@ -215,7 +217,9 @@
           <div class="object bar">bar</div>
           <div class="object table" data-table="1">table-1</div>
           <div class="object table table--round" data-table="2">table-2</div>
-          <div class="object table" data-table="3">table-3</div>
+          <div class="object table table--round"  data-table="3">table-3</div>
+          <div class="object table" data-table="4">table-4</div>
+          <div class="object table table--round"  data-table="5">table-5</div>
         </div>
         <div class="booking-options"> <!-- options -->
           <label class="booking-option-title"> <!-- option-row -->
