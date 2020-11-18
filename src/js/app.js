@@ -14,25 +14,40 @@ const app = {
     //const testProduct = new Product();
     //console.log('testProduct:', testProduct);
   },
-  initData: function () {
+  // initData: function () {
+  //   const thisApp = this;
+
+  //   thisApp.data = {};
+  //   const url = settings.db.url + '/' + settings.db.product;
+  //   console.log('url', url);
+  //   fetch(url)
+  //     .then(function (rawResponse) {
+  //       return rawResponse.json();
+  //     })
+  //     .then(function (parsedResponse) {
+  //       console.log('parseResponse', parsedResponse);
+
+  //       thisApp.data.products = parsedResponse; /* save parsedResponse as thisApp.data.products */
+
+  //       thisApp.initMenu(); /* execute initMenu method */
+
+  //     });
+  //   console.log('this.data', JSON.stringify(thisApp.data));
+  // },
+  initData: function(){
     const thisApp = this;
 
     thisApp.data = {};
     const url = settings.db.url + '/' + settings.db.product;
-    console.log('url', url);
+
     fetch(url)
-      .then(function (rawResponse) {
+      .then(function(rawResponse){
         return rawResponse.json();
       })
-      .then(function (parsedResponse) {
-        console.log('parseResponse', parsedResponse);
-
-        thisApp.data.products = parsedResponse; /* save parsedResponse as thisApp.data.products */
-
-        thisApp.initMenu(); /* execute initMenu method */
-
+      .then(function(parsedResponse){
+        thisApp.data.products = parsedResponse;
+        thisApp.initMenu();
       });
-    console.log('this.data', JSON.stringify(thisApp.data));
   },
   initCart: function () {
     const thisApp = this;

@@ -86,10 +86,12 @@ export const classNames = {
   },
   nav: {
     active: 'active',
+    links: '.main-nav a, .secondary-nav a',
   },
   pages: {
     active: 'active',
   },
+
 };
 
 export const settings = {
