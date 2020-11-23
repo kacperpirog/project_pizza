@@ -1,9 +1,9 @@
 /* eslint-disable indent */
 import {select, settings, templates, classNames} from '../settings.js';
 import utils from '../utils.js';
-import AmountWidget from './AmountWidget.js';
-import DatePicker from './DatePicker.js';
-import HourPicker from './HourPicker.js';
+import AmountWidget from './components/AmountWidget.js';
+import DatePicker from './components/DatePicker.js';
+import HourPicker from './components/HourPicker.js';
 
 class Booking {
   constructor(element) {
