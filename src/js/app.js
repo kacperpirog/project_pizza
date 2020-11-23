@@ -1,7 +1,7 @@
 import {settings, select, classNames} from './settings.js';
-import Product from './Components/Product.js';
-import Cart from './Components/Cart.js';
-import Booking from './Components/Booking.js';
+import Product from './components/Product.js';
+import Cart from './components/Cart.js';
+import Booking from './components/Booking.js';
 // import RegisterForm from './components/RegisterForm.js';
 
 const app = {
